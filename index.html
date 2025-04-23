@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Refrigeration and Air Conditioning Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f8ff; padding: 20px; }
+        h1 { text-align: center; color: #007acc; }
+        .question { background: #fff; padding: 15px; margin: 10px auto; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .question h3 { margin-bottom: 10px; }
+        button { padding: 10px 15px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; }
+        .correct { background-color: #c8e6c9; }
+        .wrong { background-color: #ffcdd2; }
+        #score { font-size: 1.2em; text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>❄️ Refrigeration and Air Conditioning Quiz</h1>
+    <div id="quiz"></div>
+    <div id="score">Score: 0/30</div>
+    <script>
+        const questions = [
+            {q: "Which of the following is used as cooling coil in air conditioning system?", a: "Evaporator", b: "Condenser", correct: "a"},
+            {q: "Pressure at the outlet of a refrigerant compressor is called —", a: "Discharge pressure", b: "Suction pressure", correct: "a"},
+            {q: "In air-conditioning of aeroplanes using air as refrigerant, the cycle is used in reversed —", a: "Brayton cycle", b: "Carnot cycle", correct: "a"},
+            {q: "One ton of refrigeration is equal to —", a: "3.5 kW", b: "1 kW", correct: "a"},
+            {q: "Where does the lowest temperature occur in a vapour compression system?", a: "Evaporator", b: "Condenser", correct: "a"},
+            {q: "A thermostatic expansion valve in the refrigeration system —", a: "Ensures the evaporator completely filled with refrigerant of load", b: "Is suitable only for constant load system", correct: "a"},
+            {q: "The following type of expansion device is utilized in flooded evaporator —", a: "Float valve", b: "Capillary tube", correct: "a"},
+            {q: "Comfort condition in air conditioning is —", a: "22°C DBT & 60% RH", b: "25°C DBT & 100% RH", correct: "a"},
+            {q: "Which of the following refrigerants has the highest latent heat?", a: "Ammonia", b: "Freon - 22", correct: "a"},
+            {q: "Which type of air conditioning is suitable in Kathmandu in the month of Shrawan and Bhadra?", a: "Cooling", b: "Cooling and dehumidification", correct: "b"},
+            {q: "Which of the following is CFC type refrigerant?", a: "R404", b: "R22", correct: "b"},
+            {q: "Air conditioning is a system for controlling:", a: "Temperature", b: "All of the above (Humidity, Ventilation, Temperature)", correct: "b"},
+            {q: "Which of the following component is used as heating coil in air conditioning system?", a: "Evaporator", b: "Compressor", correct: "b"},
+            {q: "Refrigeration and AC system को component हो —", a: "Compressor", b: "Combustion chamber", correct: "b"},
+            {q: "This is not the type of refrigerant used in air conditioning system:", a: "R12", b: "R410A", correct: "b"},
+
+            {q: "In which part of a vapor compression system is the lowest temperature found?", a: "Condenser", b: "Evaporator", correct: "b"},
+            {q: "A thermostatic expansion valve in a refrigeration system:", a: "Ensures the evaporator is completely filled with refrigerant as per load", b: "Is suitable only for constant load systems", correct: "a"},
+            {q: "Which expansion device is used in flooded evaporators?", a: "Float valve", b: "Capillary tube", correct: "a"},
+            {q: "Which of the following is used as a cooling coil in an air conditioning system?", a: "Condenser", b: "Evaporator", correct: "b"},
+            {q: "Comfort condition in air conditioning is:", a: "22°C DBT & 60% RH", b: "25°C DBT & 100% RH", correct: "a"},
+            {q: "Which refrigerant is a CFC type?", a: "R404", b: "R22", correct: "b"},
+            {q: "One ton of refrigeration is equal to:", a: "1 kW", b: "3.5 kW", correct: "b"},
+            {q: "In aircraft air-conditioning using air as refrigerant, the cycle used is reversed:", a: "Brayton cycle", b: "Carnot cycle", correct: "a"},
+            {q: "The pressure at the outlet of a refrigerant compressor is called:", a: "Suction pressure", b: "Discharge pressure", correct: "b"},
+            {q: "Which type of air conditioning is suitable for Kathmandu during Shrawan and Bhadra?", a: "Cooling", b: "Cooling and dehumidification", correct: "b"},
+            {q: "What component in an air conditioning system absorbs heat from the space?", a: "Evaporator", b: "Compressor", correct: "a"},
+            {q: "The main function of a compressor in a refrigeration system is to:", a: "Absorb heat", b: "Circulate refrigerant by increasing its pressure", correct: "b"},
+            {q: "The main purpose of refrigerant in a cooling system is to:", a: "Provide insulation", b: "Carry heat from inside to outside", correct: "b"},
+            {q: "Heat transfer from a cold body to a hot body without external work violates:", a: "First law of thermodynamics", b: "Second law of thermodynamics", correct: "b"},
+            {q: "Which unit is used to measure cooling capacity of air conditioning?", a: "kWh", b: "Ton of refrigeration", correct: "b"},
+        ];
+
+        let score = 0;
+
+        const quizContainer = document.getElementById('quiz');
+        const scoreDisplay = document.getElementById('score');
+
+        questions.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.classList.add('question');
+            div.innerHTML = `
+                <h3>Q${index + 1}. ${item.q}</h3>
+                <button onclick="checkAnswer(this, '${item.correct === 'a' ? 'correct' : 'wrong'}')">${item.a}</button>
+                <button onclick="checkAnswer(this, '${item.correct === 'b' ? 'correct' : 'wrong'}')">${item.b}</button>
+            `;
+            quizContainer.appendChild(div);
+        });
+
+        function checkAnswer(button, result) {
+            if (!button.classList.contains('correct') && !button.classList.contains('wrong')) {
+                if (result === 'correct') {
+                    button.classList.add('correct');
+                    score++;
+                } else {
+                    button.classList.add('wrong');
+                }
+                scoreDisplay.innerText = `Score: ${score}/30`;
+            }
+        }
+    </script>
+</body>
+</html>
